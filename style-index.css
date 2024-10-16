@@ -1,0 +1,71 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Titillium Web', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    overflow: hidden; /* Remove a barra de rolagem */
+}
+
+/* Estilo do cabeçalho */
+header {
+    background-color: #164A41;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Estilo do contêiner */
+.container {
+    display: flex; /* Usar flexbox para organizar menu e conteúdo */
+}
+
+/* Estilo do menu */
+.menu {
+    width: 200px; /* Largura do menu lateral */
+    background-color: #f0f0f0; /* Fundo do menu */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu ul {
+    list-style-type: none;
+}
+
+.menu ul li {
+    margin: 15px 0;
+}
+
+.menu ul li a {
+    color: #164A41; /* Cor do texto do menu */
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 5px; /* Bordas arredondadas dos links */
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.menu ul li a:hover {
+    background-color: #9dc88d; /* Fundo ao passar o mouse */
+}
+
+/* Estilo do conteúdo */
+.content {
+    flex-grow: 1; /* Permite que o conteúdo ocupe o restante do espaço */
+    padding: 40px;
+    text-align: left; /* Alinha o texto à esquerda */
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+h2 {
+    color: #164A41;
+    margin-bottom: 20px;
+}
