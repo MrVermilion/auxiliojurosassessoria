@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet"> <!-- Importa a fonte "Titillium Web" para ser usada no design da página -->
     
     <!-- Link para o CSS -->
-    <link rel="stylesheet" href="style-cadastros.css"> <!-- Link para o arquivo de estilos CSS que define o layout da página -->
+    <link rel="stylesheet" href="../CSS/style-cadastros.css"> <!-- Link para o arquivo de estilos CSS que define o layout da página -->
 
     <!-- Script para máscaras e validação -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Importa o jQuery, uma biblioteca JavaScript que facilita interações com o HTML -->
@@ -38,7 +38,8 @@
             <div class="form-container"> <!-- Container que envolve o formulário de cadastro -->
                 <!-- Coluna Esquerda: Campos de Cadastro -->
                 <div class="form-left"> <!-- Div que contém os campos do formulário à esquerda -->
-                    <form id="cadastroForm" onsubmit="return validarFormulario()"> <!-- Formulário de cadastro com uma função de validação quando enviado -->
+                    <!-- <form id="cadastroForm" onsubmit="return validarFormulario()"> Formulário de cadastro com uma função de validação quando enviado -->
+                        <form id="cadastroForm" onsubmit="return false;"> <!-- Modificado para evitar a submissão padrão -->    
                         <!-- Grupo de campos para inserir os dados -->
                         <div class="form-group">
                             <label for="nome">Nome Completo:</label> <!-- Rótulo para o campo de nome completo -->
@@ -107,7 +108,7 @@
                 <!-- Coluna Direita: Upload de Documentos -->
                 <div class="form-right"> <!-- Div que contém a área de upload de documentos à direita -->
                     <h3>Upload de Documentos</h3> <!-- Título da seção de upload de documentos -->
-
+                    
                     <!-- Grupo para upload de documentos pessoais -->
                     <div class="form-group">
                         <label for="documentosPessoais">Documentos Pessoais:</label> <!-- Rótulo para o campo de upload de documentos pessoais -->

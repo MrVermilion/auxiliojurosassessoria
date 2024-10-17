@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #1abc9c;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    main {
+        border: 1px solid black;
+        width: 80vw;
+        height: 80vh;
+    }
+
+    li,
+    button {
+        list-style: none;
+        padding: 10px 15px;
+    }
+
+    button {
+        border: none;
+        border-radius: 10px;
+        border: 1px solid #0b5446;
+        transition: all .4s ease-in-out;
+        background-color: #1abc9c;
+        color: #fff;
+    }
+
+    button:hover {
+        background-color: #1abc9c;
+        border: 1px solid #fff;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    ul {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+    var client = false;
+    var SUPABASE_INSTANCE = callInstanceSupabase();
+
+    function getTokenSupabase() {
+        return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZGp1bHdyaXpnd3NoenNuYWZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkxMDQwNjEsImV4cCI6MjA0NDY4MDA2MX0.D94BftAd0eflSZ3-EV5nu_oG2db9mNgiz8Tvtbg1zD4";
+    }
+    
+    function getUrlApiSupabase() {
+        return "https://mkdjulwrizgwshzsnafm.supabase.co";
+    }
+
+    function callInstanceSupabase() {
+        if (!client) {
+            let { createClient } = supabase;
+            let url = getUrlApiSupabase();
+            client = createClient(url, getTokenSupabase());
+        }
+        return client;
+    }
+
+    async function listarDados(tabela) {
+        let aDados = await getAllDadosFromTabela(tabela);
+        console.log("dados retornados!!!!");
+        console.log(aDados);
+        document.querySelector("#resultado").innerHTML = JSON.stringify(aDados);
+    }
+
+    async function getAllDadosFromTabela(tabela) {
+        let { data: aDadosRetorno, error } = await SUPABASE_INSTANCE
+            .from(tabela)
+            .select("*");
+
+        if (error) {
+            alert("Erro:" + error);
+        }
+
+        const dados = aDadosRetorno;
+
+        console.log(dados);
+
+        return dados;
+    }
+
+    async function inserirUsuario() {
+        
+        const usunome_param = "JOAO 456";
+        const ususenha_param = "JOAO 123";
+        const usulogin_param = "JOAO 123";
+
+        const { data, error } = await SUPABASE_INSTANCE
+        .from('usuario')
+        .insert([
+            { 
+                usunome: usunome_param,
+                ususenha: ususenha_param,
+                usulogin: usulogin_param
+            },
+        ])
+        .select()
+
+        if(error){
+            alert("Erro ao inserir!" + JSON.stringify(error));
+            return false;
+        }
+
+        alert("Usuario inserido: " + JSON.stringify(data));
+
+        // APOS INSERIR USUARIO, ATUALIZA A LISTA NA TELA - CONSULTA
+        listarDados('usuario');
+    }
+
+    async function excluirUsuario(usucodigo) {
+        
+        const { error } = await SUPABASE_INSTANCE
+        .from('usuario')
+        .delete()
+        .eq('usucodigo', usucodigo)
+
+        // APOS EXCLUIR USUARIO, ATUALIZA A LISTA NA TELA - CONSULTA
+        listarDados('usuario');
+    }
+
+    async function updateUsuario(usucodigo) {
+        usucodigo = parseInt(usucodigo);
+
+        // const usucodigo = parseInt(document.querySelector("#combo_usuario").value);
+        // const codigoatividade = parseInt(document.querySelector("#codigoatividade").value);
+        // const statuscorrecao = document.querySelector("#statuscorrecao").checked ? "SIM" : "NAO";
+
+        const usunome_param = "HELTON 123";
+        const ususenha_param = "HELTON 123";
+        const usulogin_param = "HELTON_123";
+
+        const port = "usuario";
+        const { data, error } = await SUPABASE_INSTANCE
+            .from(port)
+            .update([{
+                usunome: usunome_param,
+                ususenha: ususenha_param,
+                usulogin: usulogin_param
+            }])
+            .eq('usucodigo', usucodigo)
+            .select()
+
+        // APOS ALTERAR USUARIO, ATUALIZA A LISTA NA TELA - CONSULTA
+        listarDados('usuario');
+}
+
+</script>
+
+<body>
+    <main>
+        <header>
+            <ul>
+                <li>
+                    <button onclick="listarDados('usuario')">Listar Usuarios</button>
+                </li>
+                <li>
+                    <button onclick="updateUsuario(1)">Alterar Usuarios</button>
+                </li>                
+                <li>
+                    <button onclick="inserirUsuario()">Inserir Usuario</button>
+                </li>
+                <li>
+                    <button onclick="excluirUsuario(2)">Excluir Usuario</button>
+                </li>
+            </ul>
+        </header>
+        <hr>
+        <div id="resultado"></div>
+    </main>
+</body>
+
+</html>
