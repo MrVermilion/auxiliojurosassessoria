@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
-    
+
     <!-- Importando uma fonte do Google Fonts para estilizar o texto da página -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
 
@@ -16,75 +16,71 @@
 
     <!-- Aqui começa o código JavaScript para interagir com o banco de dados -->
     <script>
-        // Variável para armazenar a instância do Supabase (inicia como "false")
         var client = false;
-
-        // Função para criar a instância do Supabase
         var SUPABASE_INSTANCE = callInstanceSupabase();
 
-        // Função que retorna o token de autenticação do Supabase
         function getTokenSupabase() {
             return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZGp1bHdyaXpnd3NoenNuYWZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkxMDQwNjEsImV4cCI6MjA0NDY4MDA2MX0.D94BftAd0eflSZ3-EV5nu_oG2db9mNgiz8Tvtbg1zD4";
         }
         
-        // Função que retorna a URL da API do Supabase (onde os dados são armazenados)
         function getUrlApiSupabase() {
             return "https://mkdjulwrizgwshzsnafm.supabase.co";
         }
 
-        // Função para criar a instância do Supabase, que é usada para fazer as requisições
         function callInstanceSupabase() {
-            // Se a instância ainda não foi criada, cria uma nova instância
             if (!client) {
                 let { createClient } = supabase;
-                let url = getUrlApiSupabase(); // Obtém a URL da API
-                client = createClient(url, getTokenSupabase()); // Cria a instância com a URL e o token
+                let url = getUrlApiSupabase();
+                client = createClient(url, getTokenSupabase());
             }
-            return client; // Retorna a instância do Supabase
+            return client;
         }
 
-        // Função que lista os clientes e insere os dados na tabela da página
+        // Função que lista os clientes e adiciona o botão de "Ver detalhes"
         async function listarClientes() {
-            // Faz a requisição ao Supabase para pegar os dados da tabela "cadastros"
             let { data: clientes, error } = await SUPABASE_INSTANCE
-                .from('cadastros') // Especifica a tabela "cadastros"
-                .select('id, usunome, usucpf'); // Seleciona as colunas que queremos: ID, Nome e CPF
+                .from('cadastros')
+                .select('id, usunome, usucpf');
 
-            // Se houve um erro ao buscar os dados, mostra um alerta com a mensagem do erro
             if (error) {
                 alert("Erro ao listar clientes: " + error.message);
                 return;
             }
 
-            // Seleciona o corpo da tabela (onde os dados dos clientes serão colocados)
             const tbody = document.querySelector('.tabela-clientes tbody');
-            tbody.innerHTML = ''; // Limpa o conteúdo da tabela antes de adicionar os novos dados
+            tbody.innerHTML = ''; // Limpa o conteúdo da tabela
 
-            // Para cada cliente que foi retornado do Supabase, cria uma linha na tabela
+            // Para cada cliente, cria uma linha na tabela com o botão de detalhes
             clientes.forEach(cliente => {
-                const tr = document.createElement('tr'); // Cria uma nova linha na tabela
+                const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${cliente.id}</td>           <!-- Coluna de ID do cliente -->
-                    <td>${cliente.usunome}</td>      <!-- Coluna com o nome do cliente -->
-                    <td>${cliente.usucpf}</td>       <!-- Coluna com o CPF do cliente -->
+                    <td>${cliente.id}</td>
+                    <td>${cliente.usunome}</td>
+                    <td>${cliente.usucpf}</td>
+                    <td>
+                        <!-- Botão que redireciona para a página de detalhes do cliente -->
+                        <button onclick="verDetalhes(${cliente.id})">Ver detalhes</button>
+                    </td>
                 `;
-                tbody.appendChild(tr); // Adiciona essa linha à tabela
+                tbody.appendChild(tr);
             });
         }
 
-        // Quando a página terminar de carregar, executa a função para listar os clientes
+        // Função para redirecionar para a página de detalhes, passando o ID do cliente na URL
+        function verDetalhes(clienteId) {
+            window.location.href = `detalhes_cliente.html?id=${clienteId}`;
+        }
+
+        // Carrega a lista de clientes quando a página terminar de carregar
         document.addEventListener('DOMContentLoaded', listarClientes);
     </script>
 </head>
 <body>
-    <!-- Cabeçalho com o nome da empresa -->
     <header>
         <h1>AUXÍLIO-JUROS ASSESSORIA</h1>
     </header>
 
-    <!-- Container principal da página -->
     <div class="container">
-        <!-- Menu de navegação com links para outras páginas -->
         <nav class="menu">
             <ul>
                 <li><a href="index.html">Página Inicial</a></li>
@@ -95,26 +91,23 @@
             </ul>
         </nav>
 
-        <!-- Área de conteúdo principal -->
         <div class="content">
-            <!-- Título da seção de clientes -->
             <div class="cabecalho">
                 <h1>Clientes</h1>
             </div>
 
-            <!-- Div que contém a tabela de clientes -->
             <div class="barrainfo">
                 <table class="tabela-clientes">
-                    <!-- Cabeçalho da tabela com as colunas ID, Nome e CPF -->
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
                             <th>CPF</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- As linhas dos clientes serão adicionadas aqui pelo JavaScript -->
+                        <!-- Os dados dos clientes serão adicionados aqui -->
                     </tbody>
                 </table>
             </div>
