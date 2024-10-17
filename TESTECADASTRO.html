@@ -10,14 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet"> <!-- Importa a fonte "Titillium Web" para ser usada no design da página -->
     
     <!-- Link para o CSS -->
-    <link rel="stylesheet" href="../css/style-cadastros.css"> <!-- Link para o arquivo de estilos CSS que define o layout da página -->
+    <link rel="stylesheet" href="../css/style-TESTE.css"> <!-- Link para o arquivo de estilos CSS que define o layout da página -->
 
     <!-- Script para máscaras e validação -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Importa o jQuery, uma biblioteca JavaScript que facilita interações com o HTML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script> <!-- Importa a biblioteca jQuery Mask para criar máscaras nos campos de formulário, como CPF e telefone -->
         
 </head>
-<style>
+<!-- <style>
     * {
         margin: 0;
         padding: 0;
@@ -72,7 +72,8 @@
     label{
         color:black;
     }
-</style>
+</style> -->
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -123,16 +124,42 @@
     async function inserirUsuario() {
         
         const usunome_param = document.querySelector("#usunome").value;
-        const usulogin_param = document.querySelector("#usulogin").value;
-        const ususenha_param = document.querySelector("#ususenha").value;
+        const usunascimento_param = document.querySelector("#usunascimento").value;
+        //     if (!usunascimento_param) {
+        //         console.error("Data de Nascimento não pode estar vazia.");
+        //         // Exibir mensagem de erro ou tratar o caso de valor vazio
+        //         }
+        const usurg_param = document.querySelector("#usurg").value;
+        const usucpf_param = document.querySelector("#usucpf").value;
+        const usunacionalidade_param = document.querySelector("#usunacionalidade").value;
+        const usuestadocivil_param = document.querySelector("#usuestadocivil").value;
+        const usuprofissao_param = document.querySelector("#usuprofissao").value;
+        const usurua_param = document.querySelector("#usurua").value;
+        const usubairro_param = document.querySelector("#usubairro").value;
+        const usucidade_param = document.querySelector("#usucidade").value;
+        const usucep_param = document.querySelector("#usucep").value;
+        const usuestado_param = document.querySelector("#usuestado").value;
+        const usuemail_param = document.querySelector("#usuemail").value;
+        const usutelefone_param = document.querySelector("#usutelefone").value;
 
         const { data, error } = await SUPABASE_INSTANCE
         .from('usuario')
         .insert([
             { 
                 usunome: usunome_param,
-                usulogin: usulogin_param,
-                ususenha: ususenha_param
+                usunascimento: usunascimento_param,
+                usurg: usurg_param,
+                usucpf: usucpf_param,
+                usunacionalidade: usunacionalidade_param,
+                usuestadocivil: usuestadocivil_param,
+                usuprofissao: usuprofissao_param,
+                usurua: usurua_param,
+                usubairro: usubairro_param,
+                usucidade: usucidade_param,
+                usucep: usucep_param,
+                usuestado: usuestado_param,
+                usuemail: usuemail_param,
+                usutelefone: usutelefone_param
             },
         ])
         .select()
@@ -188,12 +215,13 @@
 </script>
 
 
-<style>
+<!-- <style>
     .container {
         display: flex;
         flex-direction: column;
     }
-</style>
+</style> -->
+
 <body>
     
     <div class="container"> <!-- Container que envolve todo o conteúdo principal -->
@@ -224,19 +252,73 @@
                         <form id="cadastroForm" onsubmit="return false;"> <!-- Modificado para evitar a submissão padrão -->    
                         <!-- Grupo de campos para inserir os dados -->
                         <div class="form-group">
-                            <label for="usunome">Nome Completo:</label> <!-- Rótulo para o campo de nome completo -->
+                            <label for="usunome">Nome Completo</label> <!-- Rótulo para o campo de nome completo -->
                             <input type="text" id="usunome" required> <!-- Campo de texto para inserir o nome completo, obrigatório -->
                         </div>
+                        <div class="form-group">
+                            <label for="usunascimento">Data de Nascimento</label>
+                            <input type="text" id="usunascimento" required> 
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usurg">RG nº</label>
+                            <input type="text" id="usurg" required>
+                          </div>
 
                         <div class="form-group">
-                            <label for="usulogin">Login:</label> <!-- Rótulo para o campo de data de nascimento -->
-                            <input type="text" id="usulogin" required> <!-- Campo para inserir a data de nascimento, obrigatório -->
+                            <label for="usucpf">CPF nº</label>
+                            <input type="text" id="usucpf" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="ususenha">Senha</label> <!-- Rótulo para o campo de RG -->
-                            <input type="password" id="ususenha" required> <!-- Campo de texto para inserir o número de RG, obrigatório -->
-                        </div>
+                            <label for="usunacionalidade">Nacionalidade</label>
+                            <input type="text" id="usunacionalidade" required> 
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usuestadocivil">Estado Civil</label>
+                            <input type="text" id="usuestadocivil" required> 
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usuprofissao">Profissão</label>
+                            <input type="text" id="usuprofissao" required> 
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usurua">Rua</label>
+                            <input type="text" id="usurua" required> 
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usubairro">Bairro</label>
+                            <input type="text" id="usubairro" required> 
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usucidade">Cidade</label>
+                            <input type="text" id="usucidade" required> 
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usucep">CEP</label>
+                            <input type="text" id="usucep" required> 
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usuestado">Estado</label>
+                            <input type="text" id="usuestado" maxlength="2" required> <!-- Limite de 2 caracteres para o estado -->
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usuemail">E-mail</label>
+                            <input type="email" id="usuemail" required> <!-- Campo de e-mail específico -->
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="usutelefone">Telefone</label>
+                            <input type="text" id="usutelefone" required> 
+                          </div>
                         
                         <button type="button" onclick="inserirUsuario()">Cadastrar</button> <!-- Botão para enviar o formulário -->
                         <button type="button" onclick="inserirUsuario(1)">Alterar</button> <!-- Botão para enviar o formulário -->
