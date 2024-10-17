@@ -5,32 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
     
-    <!-- Fonte Google Fonts -->
+    <!-- Importando uma fonte do Google Fonts para estilizar o texto da página -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Link para o CSS -->
+    <!-- Importando o arquivo CSS para dar estilo à página -->
     <link rel="stylesheet" href="../CSS/style-clientes.css">
+
+    <!-- Importando a biblioteca do Supabase para se conectar com o banco de dados -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Aqui começa o código JavaScript para interagir com o banco de dados -->
+    <script>
+        // Variável para armazenar a instância do Supabase (inicia como "false")
+        var client = false;
+
+        // Função para criar a instância do Supabase
+        var SUPABASE_INSTANCE = callInstanceSupabase();
+
+        // Função que retorna o token de autenticação do Supabase
+        function getTokenSupabase() {
+            return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZGp1bHdyaXpnd3NoenNuYWZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkxMDQwNjEsImV4cCI6MjA0NDY4MDA2MX0.D94BftAd0eflSZ3-EV5nu_oG2db9mNgiz8Tvtbg1zD4";
+        }
+        
+        // Função que retorna a URL da API do Supabase (onde os dados são armazenados)
+        function getUrlApiSupabase() {
+            return "https://mkdjulwrizgwshzsnafm.supabase.co";
+        }
+
+        // Função para criar a instância do Supabase, que é usada para fazer as requisições
+        function callInstanceSupabase() {
+            // Se a instância ainda não foi criada, cria uma nova instância
+            if (!client) {
+                let { createClient } = supabase;
+                let url = getUrlApiSupabase(); // Obtém a URL da API
+                client = createClient(url, getTokenSupabase()); // Cria a instância com a URL e o token
+            }
+            return client; // Retorna a instância do Supabase
+        }
+
+        // Função que lista os clientes e insere os dados na tabela da página
+        async function listarClientes() {
+            // Faz a requisição ao Supabase para pegar os dados da tabela "cadastros"
+            let { data: clientes, error } = await SUPABASE_INSTANCE
+                .from('cadastros') // Especifica a tabela "cadastros"
+                .select('id, usunome, usucpf'); // Seleciona as colunas que queremos: ID, Nome e CPF
+
+            // Se houve um erro ao buscar os dados, mostra um alerta com a mensagem do erro
+            if (error) {
+                alert("Erro ao listar clientes: " + error.message);
+                return;
+            }
+
+            // Seleciona o corpo da tabela (onde os dados dos clientes serão colocados)
+            const tbody = document.querySelector('.tabela-clientes tbody');
+            tbody.innerHTML = ''; // Limpa o conteúdo da tabela antes de adicionar os novos dados
+
+            // Para cada cliente que foi retornado do Supabase, cria uma linha na tabela
+            clientes.forEach(cliente => {
+                const tr = document.createElement('tr'); // Cria uma nova linha na tabela
+                tr.innerHTML = `
+                    <td>${cliente.id}</td>           <!-- Coluna de ID do cliente -->
+                    <td>${cliente.usunome}</td>      <!-- Coluna com o nome do cliente -->
+                    <td>${cliente.usucpf}</td>       <!-- Coluna com o CPF do cliente -->
+                `;
+                tbody.appendChild(tr); // Adiciona essa linha à tabela
+            });
+        }
+
+        // Quando a página terminar de carregar, executa a função para listar os clientes
+        document.addEventListener('DOMContentLoaded', listarClientes);
+    </script>
 </head>
 <body>
+    <!-- Cabeçalho com o nome da empresa -->
     <header>
         <h1>AUXÍLIO-JUROS ASSESSORIA</h1>
     </header>
 
+    <!-- Container principal da página -->
     <div class="container">
+        <!-- Menu de navegação com links para outras páginas -->
         <nav class="menu">
             <ul>
-                <li><a href="index.html">Página Inicial</a></li> <!-- Link para a página inicial -->
-                <li><a href="cadastros.html">Cadastros</a></li> <!-- Link para a página de Cadastro -->
-                <li><a href="tarefas.html">Tarefas</a></li> <!-- Link para a página de tarefas -->
-                <li><a href="clientes.html">Clientes</a></li> <!-- Link para a página de clientes -->
-                <li><a href="documentos.html">Documentos</a></li> <!-- Link para a página de documentos -->
+                <li><a href="index.html">Página Inicial</a></li>
+                <li><a href="cadastros.html">Cadastros</a></li>
+                <li><a href="tarefas.html">Tarefas</a></li>
+                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="documentos.html">Documentos</a></li>
             </ul>
         </nav>
 
+        <!-- Área de conteúdo principal -->
         <div class="content">
-            <h2>Lista de Clientes</h2>
-            <p>Aqui você poderá ver os clientes cadastrados e acessar seus documentos.</p>
-            <a href="documentos.html" class="btn-link">Acessar Documentos</a>
+            <!-- Título da seção de clientes -->
+            <div class="cabecalho">
+                <h1>Clientes</h1>
+            </div>
+
+            <!-- Div que contém a tabela de clientes -->
+            <div class="barrainfo">
+                <table class="tabela-clientes">
+                    <!-- Cabeçalho da tabela com as colunas ID, Nome e CPF -->
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- As linhas dos clientes serão adicionadas aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
