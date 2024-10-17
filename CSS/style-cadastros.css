@@ -103,7 +103,7 @@ input[type="file"] {
     font-size: 14px;
 }
 
-button[type="submit"] {
+button {
     background-color: #164A41;
     color: white;
     padding: 10px 20px;
@@ -113,9 +113,9 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-button[type="submit"]:hover {
-    background-color: #9dc88d;
-}
+/* button :hover {
+    background-color: #968dc8;
+} */
 
 input[type="file"] {
     border: none;
