@@ -125,10 +125,6 @@
         
         const usunome_param = document.querySelector("#usunome").value;
         const usunascimento_param = document.querySelector("#usunascimento").value;
-        //     if (!usunascimento_param) {
-        //         console.error("Data de Nascimento não pode estar vazia.");
-        //         // Exibir mensagem de erro ou tratar o caso de valor vazio
-        //         }
         const usurg_param = document.querySelector("#usurg").value;
         const usucpf_param = document.querySelector("#usucpf").value;
         const usunacionalidade_param = document.querySelector("#usunacionalidade").value;
@@ -143,7 +139,7 @@
         const usutelefone_param = document.querySelector("#usutelefone").value;
 
         const { data, error } = await SUPABASE_INSTANCE
-        .from('usuario')
+        .from('cadastros')
         .insert([
             { 
                 usunome: usunome_param,
@@ -224,26 +220,23 @@
 
 <body>
     
+    <header>
+        <h1>AUXÍLIO-JUROS ASSESSORIA</h1> <!-- Cabeçalho da página com o título da empresa -->
+    </header>
+
     <div class="container"> <!-- Container que envolve todo o conteúdo principal -->
         <nav class="menu"> <!-- Menu de navegação -->
             <ul>
-                <li>
-                    <button onclick="listarDados('usuario')">Listar Usuarios</button>
-                </li>
-                <li>
-                    <button onclick="updateUsuario(1)">Alterar Usuarios</button>
-                </li>                
-                <li>
-                    <button onclick="inserirUsuario()">Inserir Usuario</button>
-                </li>
-                <li>
-                    <button onclick="excluirUsuario(2)">Excluir Usuario</button>
-                </li>
+                <li><a href="index.html">Página Inicial</a></li> <!-- Link para a página inicial -->
+                <li><a href="cadastro.html">Cadastro</a></li> <!-- Link para a página de Cadastro -->
+                <li><a href="tarefas.html">Tarefas</a></li> <!-- Link para a página de tarefas -->
+                <li><a href="clientes.html">Clientes</a></li> <!-- Link para a página de clientes -->
+                <li><a href="documentos.html">Documentos</a></li> <!-- Link para a página de documentos -->
             </ul>
         </nav>
 
         <div class="content"> <!-- Área de conteúdo principal da página -->
-            <h2>Cadastro de Usuario</h2> <!-- Título do formulário de cadastro -->
+            <h2>Cadastro de Clientes</h2> <!-- Título do formulário de cadastro -->
             
             <div class="form-container"> <!-- Container que envolve o formulário de cadastro -->
                 <!-- Coluna Esquerda: Campos de Cadastro -->
@@ -321,9 +314,31 @@
                           </div>
                         
                         <button type="button" onclick="inserirUsuario()">Cadastrar</button> <!-- Botão para enviar o formulário -->
-                        <button type="button" onclick="inserirUsuario(1)">Alterar</button> <!-- Botão para enviar o formulário -->
                     </form>
                 </div>
+            </div>
+        </div>
+
+         <!-- Coluna Direita: Upload de Documentos -->
+         <div class="form-right"> <!-- Div que contém a área de upload de documentos à direita -->
+            <h3>Upload de Documentos</h3> <!-- Título da seção de upload de documentos -->
+            
+            <!-- Grupo para upload de documentos pessoais -->
+            <div class="form-group">
+                <label for="documentosPessoais">Documentos Pessoais:</label> <!-- Rótulo para o campo de upload de documentos pessoais -->
+                <input type="file" id="documentosPessoais" multiple> <!-- Campo para fazer upload de múltiplos arquivos de documentos pessoais -->
+            </div>
+
+            <!-- Grupo para upload de contratos assinados -->
+            <div class="form-group">
+                <label for="contratos">Contratos Assinados:</label> <!-- Rótulo para o campo de upload de contratos -->
+                <input type="file" id="contratos" multiple> <!-- Campo para fazer upload de múltiplos arquivos de contratos assinados -->
+            </div>
+
+            <!-- Grupo para upload de extratos do INSS -->
+            <div class="form-group">
+                <label for="extratosInss">Extratos do INSS:</label> <!-- Rótulo para o campo de upload de extratos do INSS -->
+                <input type="file" id="extratosInss" multiple> <!-- Campo para fazer upload de múltiplos arquivos de extratos do INSS -->
             </div>
         </div>
 
