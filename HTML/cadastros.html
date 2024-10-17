@@ -74,7 +74,6 @@
     }
 </style> -->
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -121,7 +120,7 @@
         return dados;
     }
 
-    async function inserirUsuario() {
+    async function inserirCadastro() {
         
         const usunome_param = document.querySelector("#usunome").value;
         const usunascimento_param = document.querySelector("#usunascimento").value;
@@ -165,22 +164,28 @@
             return false;
         }
 
-        alert("Usuario inserido: " + JSON.stringify(data));
+        alert("Cadastro inserido: " + JSON.stringify(data));
 
-        // APOS INSERIR USUARIO, ATUALIZA A LISTA NA TELA - CONSULTA
-        listarDados('usuario');
+        // APOS INSERIR CADASTRO, ATUALIZA A LISTA NA TELA - CONSULTA
+        // listarDados('cadastros');
     }
 
-    async function excluirUsuario(usucodigo) {
+
+/* EXCLUIR CADASTROS /////////////////////////////////////////////////////*/
+
+    async function excluirCadastro(usunome) {
         
         const { error } = await SUPABASE_INSTANCE
-        .from('usuario')
+        .from('cadastros')
         .delete()
-        .eq('usucodigo', usucodigo)
+        .eq('usunome', usunome)
 
         // APOS EXCLUIR USUARIO, ATUALIZA A LISTA NA TELA - CONSULTA
-        listarDados('usuario');
+        listarDados('cadastros');
     }
+
+    /* FIM EXCLUIR CADASTROS /////////////////////////////////////////////////////*/
+
 
     async function updateUsuario(usucodigo) {
         usucodigo = parseInt(usucodigo);
@@ -207,19 +212,9 @@
         // APOS ALTERAR USUARIO, ATUALIZA A LISTA NA TELA - CONSULTA
         listarDados('usuario');
 }
-
 </script>
 
-
-<!-- <style>
-    .container {
-        display: flex;
-        flex-direction: column;
-    }
-</style> -->
-
 <body>
-    
     <header>
         <h1>AUXÍLIO-JUROS ASSESSORIA</h1> <!-- Cabeçalho da página com o título da empresa -->
     </header>
@@ -313,7 +308,7 @@
                             <input type="text" id="usutelefone" required> 
                           </div>
                         
-                        <button type="button" onclick="inserirUsuario()">Cadastrar</button> <!-- Botão para enviar o formulário -->
+                        <button type="button" onclick="inserirCadastro()">Cadastrar</button> <!-- Botão para enviar o formulário -->
                     </form>
                 </div>
             </div>
