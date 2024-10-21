@@ -17,62 +17,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script> <!-- Importa a biblioteca jQuery Mask para criar máscaras nos campos de formulário, como CPF e telefone -->
         
 </head>
-<!-- <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        background-color: #1abc9c;
-        color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    main {
-        border: 1px solid black;
-        width: 80vw;
-        height: 80vh;
-    }
-
-    li,
-    button {
-        list-style: none;
-        padding: 10px 15px;
-    }
-
-    button {
-        border: none;
-        border-radius: 10px;
-        border: 1px solid #0b5446;
-        transition: all .4s ease-in-out;
-        background-color: #1abc9c;
-        color: #fff;
-    }
-
-    button:hover {
-        background-color: #1abc9c;
-        border: 1px solid #fff;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    ul {
-        display: flex;
-        gap: 5px;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
-
-    label{
-        color:black;
-    }
-</style> -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -311,6 +255,30 @@
                         <button type="button" onclick="inserirCadastro()">Cadastrar</button> <!-- Botão para enviar o formulário -->
                     </form>
                 </div>
+            </div>
+        </div>
+
+
+        <!-- Coluna Direita: Upload de Documentos -->
+        <div class="form-right"> <!-- Div que contém a área de upload de documentos à direita -->
+            <h3>Upload de Documentos</h3> <!-- Título da seção de upload de documentos -->
+            
+            <!-- Grupo para upload de documentos pessoais -->
+            <div class="form-group">
+                <label for="documentosPessoais">Documentos Pessoais:</label> <!-- Rótulo para o campo de upload de documentos pessoais -->
+                <input type="file" id="documentosPessoais" multiple> <!-- Campo para fazer upload de múltiplos arquivos de documentos pessoais -->
+            </div>
+
+            <!-- Grupo para upload de contratos assinados -->
+            <div class="form-group">
+                <label for="contratos">Contratos Assinados:</label> <!-- Rótulo para o campo de upload de contratos -->
+                <input type="file" id="contratos" multiple> <!-- Campo para fazer upload de múltiplos arquivos de contratos assinados -->
+            </div>
+
+            <!-- Grupo para upload de extratos do INSS -->
+            <div class="form-group">
+                <label for="extratosInss">Extratos do INSS:</label> <!-- Rótulo para o campo de upload de extratos do INSS -->
+                <input type="file" id="extratosInss" multiple> <!-- Campo para fazer upload de múltiplos arquivos de extratos do INSS -->
             </div>
         </div>
         

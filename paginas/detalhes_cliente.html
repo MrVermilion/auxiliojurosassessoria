@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Cliente</title>
+
+    <!-- Importando a fonte Titillium Web para estilização do texto -->
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Vinculando o arquivo CSS para estilização da página -->
+    <link rel="stylesheet" href="../CSS/style-clientes.css">
+
+    <!-- Importando a biblioteca do Supabase para interação com o banco de dados -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        var client = false; // Variável que armazena a instância do Supabase, inicialmente false
+        var SUPABASE_INSTANCE = callInstanceSupabase(); // Chama a função que cria ou recupera a instância do Supabase
+
+        // Função para retornar o token de autenticação do Supabase
+        function getTokenSupabase() {
+            return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZGp1bHdyaXpnd3NoenNuYWZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkxMDQwNjEsImV4cCI6MjA0NDY4MDA2MX0.D94BftAd0eflSZ3-EV5nu_oG2db9mNgiz8Tvtbg1zD4";
+        }
+        
+        // Função para retornar a URL da API do Supabase
+        function getUrlApiSupabase() {
+            return "https://mkdjulwrizgwshzsnafm.supabase.co";
+        }
+
+        // Função que cria ou retorna a instância do Supabase (client)
+        function callInstanceSupabase() {
+            if (!client) { // Se ainda não houver um client, cria um novo
+                let { createClient } = supabase; // Obtém o método createClient da biblioteca supabase
+                let url = getUrlApiSupabase(); // Obtém a URL da API do Supabase
+                client = createClient(url, getTokenSupabase()); // Cria o client com a URL e o token
+            }
+            return client; // Retorna o client já criado ou recuperado
+        }
+
+        // Função para obter o ID do cliente a partir da URL
+        function getClienteIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search); // Pega os parâmetros da URL
+            return urlParams.get('id'); // Retorna o ID do cliente encontrado na URL
+        }
+
+        // Função para buscar e exibir os detalhes do cliente do Supabase
+        async function carregarDetalhesCliente() {
+            const clienteId = getClienteIdFromUrl(); // Obtém o ID do cliente pela URL
+
+            // Faz uma consulta à tabela 'cadastros' no Supabase, filtrando pelo ID do cliente
+            let { data: cliente, error } = await SUPABASE_INSTANCE
+                .from('cadastros')
+                .select('*') // Seleciona todas as colunas do cliente
+                .eq('id', clienteId) // Filtra pelo ID do cliente
+                .single(); // Espera um único registro
+
+            if (error) { // Se houver erro na consulta
+                alert("Erro ao carregar detalhes do cliente: " + error.message); // Exibe mensagem de erro
+                return;
+            }
+
+            // Preenche os campos da página com os dados do cliente retornado do banco
+            document.querySelector('#nome').textContent = cliente.usunome;
+            document.querySelector('#id').textContent = cliente.id;
+            document.querySelector('#dataNascimento').textContent = cliente.usunascimento; // Campo data de nascimento
+            document.querySelector('#cpf').textContent = cliente.usucpf;
+            document.querySelector('#rg').textContent = cliente.usurg; // Campo RG
+            document.querySelector('#nacionalidade').textContent = cliente.usunacionalidade; // Campo nacionalidade
+            document.querySelector('#estadoCivil').textContent = cliente.usuestadocivil; // Campo estado civil
+            document.querySelector('#profissao').textContent = cliente.usuprofissao; // Campo profissão
+            document.querySelector('#rua').textContent = cliente.usurua; // Campo rua
+            document.querySelector('#bairro').textContent = cliente.usubairro; // Campo bairro
+            document.querySelector('#cidade').textContent = cliente.usucidade; // Campo cidade
+            document.querySelector('#cep').textContent = cliente.usucep; // Campo CEP
+            document.querySelector('#estado').textContent = cliente.usuestado; // Campo estado
+            document.querySelector('#email').textContent = cliente.usuemail; // Campo email
+            document.querySelector('#telefone').textContent = cliente.usutelefone; // Campo telefone
+            // Adicione mais campos aqui conforme necessário
+        }
+
+        // Executa a função para carregar os detalhes do cliente quando a página for carregada
+        document.addEventListener('DOMContentLoaded', carregarDetalhesCliente);
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Detalhes do Cliente</h1> <!-- Título da página -->
+    </header>
+
+    <div class="container">
+        <!-- Menu de navegação da página -->
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Página Inicial</a></li>
+                <li><a href="cadastros.html">Cadastros</a></li>
+                <li><a href="tarefas.html">Tarefas</a></li>
+                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="documentos.html">Documentos</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área onde os detalhes do cliente serão exibidos -->
+        <div class="content">
+            <h2>Informações do Cliente</h2>
+            <p><strong>ID:</strong> <span id="id"></span></p> <!-- Exibe o ID do cliente -->
+            <p><strong>Nome:</strong> <span id="nome"></span></p> <!-- Exibe o nome do cliente -->
+            <p><strong>Data de Nascimento:</strong> <span id="dataNascimento"></span></p> <!-- Exibe a data de nascimento -->
+            <p><strong>CPF nº:</strong> <span id="cpf"></span></p> <!-- Exibe o CPF -->
+            <p><strong>RG nº:</strong> <span id="rg"></span></p> <!-- Exibe o RG -->
+            <p><strong>Nacionalidade:</strong> <span id="nacionalidade"></span></p> <!-- Exibe a nacionalidade -->
+            <p><strong>Estado Civil:</strong> <span id="estadoCivil"></span></p> <!-- Exibe o estado civil -->
+            <p><strong>Profissão:</strong> <span id="profissao"></span></p> <!-- Exibe a profissão -->
+            <p><strong>Rua:</strong> <span id="rua"></span></p> <!-- Exibe a rua -->
+            <p><strong>Bairro:</strong> <span id="bairro"></span></p> <!-- Exibe o bairro -->
+            <p><strong>Cidade:</strong> <span id="cidade"></span></p> <!-- Exibe a cidade -->
+            <p><strong>CEP:</strong> <span id="cep"></span></p> <!-- Exibe o CEP -->
+            <p><strong>Estado:</strong> <span id="estado"></span></p> <!-- Exibe o estado -->
+            <p><strong>E-mail:</strong> <span id="email"></span></p> <!-- Exibe o email -->
+            <p><strong>Telefone:</strong> <span id="telefone"></span></p> <!-- Exibe o telefone -->
+            <!-- Adicione mais campos conforme necessário -->
+        </div>
+
+        <script>
+            // Função para voltar à página anterior no histórico do navegador
+            function voltarPagina() {
+                window.history.back(); // Vai para a página anterior
+            }
+        </script>
+    </div>
+
+    <!-- Botão que chama a função de voltar à página anterior -->
+    <button id="btnVoltar" onclick="voltarPagina()">Voltar</button>
+</body>
+</html>
