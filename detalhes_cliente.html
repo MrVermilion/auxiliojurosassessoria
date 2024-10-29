@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@
         function getTokenSupabase() {
             return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZGp1bHdyaXpnd3NoenNuYWZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkxMDQwNjEsImV4cCI6MjA0NDY4MDA2MX0.D94BftAd0eflSZ3-EV5nu_oG2db9mNgiz8Tvtbg1zD4";
         }
-        
+
         // Função para retornar a URL da API do Supabase
         function getUrlApiSupabase() {
             return "https://mkdjulwrizgwshzsnafm.supabase.co";
@@ -82,6 +83,7 @@
         document.addEventListener('DOMContentLoaded', carregarDetalhesCliente);
     </script>
 </head>
+
 <body>
     <header>
         <h1>Detalhes do Cliente</h1> <!-- Título da página -->
@@ -104,7 +106,8 @@
             <h2>Informações do Cliente</h2>
             <p><strong>ID:</strong> <span id="id"></span></p> <!-- Exibe o ID do cliente -->
             <p><strong>Nome:</strong> <span id="nome"></span></p> <!-- Exibe o nome do cliente -->
-            <p><strong>Data de Nascimento:</strong> <span id="dataNascimento"></span></p> <!-- Exibe a data de nascimento -->
+            <p><strong>Data de Nascimento:</strong> <span id="dataNascimento"></span></p>
+            <!-- Exibe a data de nascimento -->
             <p><strong>CPF nº:</strong> <span id="cpf"></span></p> <!-- Exibe o CPF -->
             <p><strong>RG nº:</strong> <span id="rg"></span></p> <!-- Exibe o RG -->
             <p><strong>Nacionalidade:</strong> <span id="nacionalidade"></span></p> <!-- Exibe a nacionalidade -->
@@ -131,4 +134,5 @@
     <!-- Botão que chama a função de voltar à página anterior -->
     <button id="btnVoltar" onclick="voltarPagina()">Voltar</button>
 </body>
+
 </html>

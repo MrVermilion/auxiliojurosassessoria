@@ -23,8 +23,10 @@ header {
 }
 
 .menu {
-    width: 200px; /* Largura do menu lateral */
-    background-color: #f0f0f0; /* Fundo do menu */
+    width: 200px;
+    /* Largura do menu lateral */
+    background-color: #f0f0f0;
+    /* Fundo do menu */
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
@@ -38,26 +40,31 @@ header {
 }
 
 .menu ul li a {
-    color: #164A41; /* Cor do texto do menu */
+    color: #164A41;
+    /* Cor do texto do menu */
     text-decoration: none;
     font-weight: 600;
     padding: 10px;
-    border-radius: 5px; /* Bordas arredondadas dos links */
+    border-radius: 5px;
+    /* Bordas arredondadas dos links */
     display: block;
     transition: background-color 0.3s;
 }
 
 .menu ul li a:hover {
-    background-color: #9dc88d; /* Fundo ao passar o mouse */
+    background-color: #9dc88d;
+    /* Fundo ao passar o mouse */
 }
 
 .content {
-    flex-grow: 1; /* Permite que o conteúdo ocupe o restante do espaço */
+    flex-grow: 1;
+    /* Permite que o conteúdo ocupe o restante do espaço */
     padding: 40px;
     text-align: center;
     background-color: #fff;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px; /* Bordas arredondadas */
+    border-radius: 10px;
+    /* Bordas arredondadas */
 }
 
 h2 {
@@ -75,7 +82,7 @@ h3 {
     justify-content: space-between;
 }
 
-.form-left{
+.form-left {
     width: 48%;
 }
 
@@ -94,7 +101,10 @@ label {
     font-size: 18px;
 }
 
-input[type="text"], input[type="date"], input[type="email"], input[type="tel"] {
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="tel"] {
     width: 100%;
     padding: 10px;
     border-radius: 5px;

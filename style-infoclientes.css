@@ -9,7 +9,8 @@ body {
     font-family: 'Titillium Web', sans-serif;
     background-color: #f0f0f0;
     color: #333;
-    overflow: hidden; /* Remove a barra de rolagem */
+    overflow: hidden;
+    /* Remove a barra de rolagem */
 }
 
 /* Estilo do cabeçalho */
@@ -27,8 +28,10 @@ header {
 
 /* Estilo do menu */
 .menu {
-    width: 200px; /* Largura do menu lateral */
-    background-color: #f0f0f0; /* Fundo do menu */
+    width: 200px;
+    /* Largura do menu lateral */
+    background-color: #f0f0f0;
+    /* Fundo do menu */
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
@@ -42,27 +45,32 @@ header {
 }
 
 .menu ul li a {
-    color: #164A41; /* Cor do texto do menu */
+    color: #164A41;
+    /* Cor do texto do menu */
     text-decoration: none;
     font-weight: 600;
     padding: 10px;
-    border-radius: 5px; /* Bordas arredondadas dos links */
+    border-radius: 5px;
+    /* Bordas arredondadas dos links */
     display: block;
     transition: background-color 0.3s;
 }
 
 .menu ul li a:hover {
-    background-color: #9dc88d; /* Fundo ao passar o mouse */
+    background-color: #9dc88d;
+    /* Fundo ao passar o mouse */
 }
 
 /* Estilo do conteúdo */
 .content {
-    flex-grow: 1; /* Permite que o conteúdo ocupe o restante do espaço */
+    flex-grow: 1;
+    /* Permite que o conteúdo ocupe o restante do espaço */
     padding: 40px;
     text-align: center;
     background-color: #fff;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px; /* Bordas arredondadas */
+    border-radius: 10px;
+    /* Bordas arredondadas */
 }
 
 /* linhas da tabela */
@@ -72,7 +80,8 @@ header {
     border-collapse: collapse;
 }
 
-.tabela-clientes th, .tabela-clientes td {
+.tabela-clientes th,
+.tabela-clientes td {
     padding: 15px;
     text-align: center;
     background-color: rgba(22, 74, 65, 0.5);

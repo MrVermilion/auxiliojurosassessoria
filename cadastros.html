@@ -5,17 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Database</title>
-    
+
     <!-- Fonte Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet"> <!-- Importa a fonte "Titillium Web" para ser usada no design da página -->
-    
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Importa a fonte "Titillium Web" para ser usada no design da página -->
+
     <!-- Link para o CSS -->
-    <link rel="stylesheet" href="style-cadastros.css"> <!-- Link para o arquivo de estilos CSS que define o layout da página -->
+    <link rel="stylesheet" href="style-cadastros.css">
+    <!-- Link para o arquivo de estilos CSS que define o layout da página -->
 
     <!-- Script para máscaras e validação -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Importa o jQuery, uma biblioteca JavaScript que facilita interações com o HTML -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script> <!-- Importa a biblioteca jQuery Mask para criar máscaras nos campos de formulário, como CPF e telefone -->
-        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Importa o jQuery, uma biblioteca JavaScript que facilita interações com o HTML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <!-- Importa a biblioteca jQuery Mask para criar máscaras nos campos de formulário, como CPF e telefone -->
+
 </head>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -27,7 +31,7 @@
     function getTokenSupabase() {
         return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZGp1bHdyaXpnd3NoenNuYWZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkxMDQwNjEsImV4cCI6MjA0NDY4MDA2MX0.D94BftAd0eflSZ3-EV5nu_oG2db9mNgiz8Tvtbg1zD4";
     }
-    
+
     function getUrlApiSupabase() {
         return "https://mkdjulwrizgwshzsnafm.supabase.co";
     }
@@ -65,7 +69,7 @@
     }
 
     async function inserirCadastro() {
-        
+
         const usunome_param = document.querySelector("#usunome").value;
         const usunascimento_param = document.querySelector("#usunascimento").value;
         const usurg_param = document.querySelector("#usurg").value;
@@ -82,28 +86,28 @@
         const usutelefone_param = document.querySelector("#usutelefone").value;
 
         const { data, error } = await SUPABASE_INSTANCE
-        .from('cadastros')
-        .insert([
-            { 
-                usunome: usunome_param,
-                usunascimento: usunascimento_param,
-                usurg: usurg_param,
-                usucpf: usucpf_param,
-                usunacionalidade: usunacionalidade_param,
-                usuestadocivil: usuestadocivil_param,
-                usuprofissao: usuprofissao_param,
-                usurua: usurua_param,
-                usubairro: usubairro_param,
-                usucidade: usucidade_param,
-                usucep: usucep_param,
-                usuestado: usuestado_param,
-                usuemail: usuemail_param,
-                usutelefone: usutelefone_param
-            },
-        ])
-        .select()
+            .from('cadastros')
+            .insert([
+                {
+                    usunome: usunome_param,
+                    usunascimento: usunascimento_param,
+                    usurg: usurg_param,
+                    usucpf: usucpf_param,
+                    usunacionalidade: usunacionalidade_param,
+                    usuestadocivil: usuestadocivil_param,
+                    usuprofissao: usuprofissao_param,
+                    usurua: usurua_param,
+                    usubairro: usubairro_param,
+                    usucidade: usucidade_param,
+                    usucep: usucep_param,
+                    usuestado: usuestado_param,
+                    usuemail: usuemail_param,
+                    usutelefone: usutelefone_param
+                },
+            ])
+            .select()
 
-        if(error){
+        if (error) {
             alert("Erro ao inserir!" + JSON.stringify(error));
             return false;
         }
@@ -115,14 +119,14 @@
     }
 
 
-/* EXCLUIR CADASTROS /////////////////////////////////////////////////////*/
+    /* EXCLUIR CADASTROS /////////////////////////////////////////////////////*/
 
     async function excluirCadastro(usunome) {
-        
+
         const { error } = await SUPABASE_INSTANCE
-        .from('cadastros')
-        .delete()
-        .eq('usunome', usunome)
+            .from('cadastros')
+            .delete()
+            .eq('usunome', usunome)
 
         // APOS EXCLUIR USUARIO, ATUALIZA A LISTA NA TELA - CONSULTA
         listarDados('cadastros');
@@ -155,7 +159,7 @@
 
         // APOS ALTERAR USUARIO, ATUALIZA A LISTA NA TELA - CONSULTA
         listarDados('usuario');
-}
+    }
 </script>
 
 <body>
@@ -177,26 +181,27 @@
 
         <div class="content"> <!-- Área de conteúdo principal da página -->
             <h2>Cadastro de Clientes</h2> <!-- Título do formulário de cadastro -->
-            
+
             <div class="form-container"> <!-- Container que envolve o formulário de cadastro -->
                 <!-- Coluna Esquerda: Campos de Cadastro -->
                 <div class="form-left"> <!-- Div que contém os campos do formulário à esquerda -->
                     <!-- <form id="cadastroForm" onsubmit="return validarFormulario()"> Formulário de cadastro com uma função de validação quando enviado -->
-                        <form id="cadastroForm" onsubmit="return false;"> <!-- Modificado para evitar a submissão padrão -->    
+                    <form id="cadastroForm" onsubmit="return false;"> <!-- Modificado para evitar a submissão padrão -->
                         <!-- Grupo de campos para inserir os dados -->
                         <div class="form-group">
                             <label for="usunome">Nome Completo</label> <!-- Rótulo para o campo de nome completo -->
-                            <input type="text" id="usunome" required> <!-- Campo de texto para inserir o nome completo, obrigatório -->
+                            <input type="text" id="usunome" required>
+                            <!-- Campo de texto para inserir o nome completo, obrigatório -->
                         </div>
                         <div class="form-group">
                             <label for="usunascimento">Data de Nascimento</label>
-                            <input type="text" id="usunascimento" required> 
-                          </div>
-                          
-                          <div class="form-group">
+                            <input type="text" id="usunascimento" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="usurg">RG nº</label>
                             <input type="text" id="usurg" required>
-                          </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="usucpf">CPF nº</label>
@@ -205,55 +210,57 @@
 
                         <div class="form-group">
                             <label for="usunacionalidade">Nacionalidade</label>
-                            <input type="text" id="usunacionalidade" required> 
-                          </div>
-                          
-                          <div class="form-group">
+                            <input type="text" id="usunacionalidade" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="usuestadocivil">Estado Civil</label>
-                            <input type="text" id="usuestadocivil" required> 
-                          </div>
-                          
-                          <div class="form-group">
+                            <input type="text" id="usuestadocivil" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="usuprofissao">Profissão</label>
-                            <input type="text" id="usuprofissao" required> 
-                          </div>
-                          
-                          <div class="form-group">
+                            <input type="text" id="usuprofissao" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="usurua">Rua</label>
-                            <input type="text" id="usurua" required> 
-                          </div>
-                          
-                          <div class="form-group">
+                            <input type="text" id="usurua" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="usubairro">Bairro</label>
-                            <input type="text" id="usubairro" required> 
-                          </div>
-                          
-                          <div class="form-group">
+                            <input type="text" id="usubairro" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="usucidade">Cidade</label>
-                            <input type="text" id="usucidade" required> 
-                          </div>
-                          
-                          <div class="form-group">
+                            <input type="text" id="usucidade" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="usucep">CEP</label>
-                            <input type="text" id="usucep" required> 
-                          </div>
-                          
-                          <div class="form-group">
+                            <input type="text" id="usucep" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="usuestado">Estado</label>
-                            <input type="text" id="usuestado" maxlength="2" required> <!-- Limite de 2 caracteres para o estado -->
-                          </div>
-                          
-                          <div class="form-group">
+                            <input type="text" id="usuestado" maxlength="2" required>
+                            <!-- Limite de 2 caracteres para o estado -->
+                        </div>
+
+                        <div class="form-group">
                             <label for="usuemail">E-mail</label>
                             <input type="email" id="usuemail" required> <!-- Campo de e-mail específico -->
-                          </div>
-                          
-                          <div class="form-group">
+                        </div>
+
+                        <div class="form-group">
                             <label for="usutelefone">Telefone</label>
-                            <input type="text" id="usutelefone" required> 
-                          </div>
-                        
-                        <button type="button" onclick="inserirCadastro()">Cadastrar</button> <!-- Botão para enviar o formulário -->
+                            <input type="text" id="usutelefone" required>
+                        </div>
+
+                        <button type="button" onclick="inserirCadastro()">Cadastrar</button>
+                        <!-- Botão para enviar o formulário -->
                     </form>
                 </div>
             </div>
@@ -263,26 +270,31 @@
         <!-- Coluna Direita: Upload de Documentos -->
         <div class="form-right"> <!-- Div que contém a área de upload de documentos à direita -->
             <h3>Upload de Documentos</h3> <!-- Título da seção de upload de documentos -->
-            
+
             <!-- Grupo para upload de documentos pessoais -->
             <div class="form-group">
-                <label for="documentosPessoais">Documentos Pessoais:</label> <!-- Rótulo para o campo de upload de documentos pessoais -->
-                <input type="file" id="documentosPessoais" multiple> <!-- Campo para fazer upload de múltiplos arquivos de documentos pessoais -->
+                <label for="documentosPessoais">Documentos Pessoais:</label>
+                <!-- Rótulo para o campo de upload de documentos pessoais -->
+                <input type="file" id="documentosPessoais" multiple>
+                <!-- Campo para fazer upload de múltiplos arquivos de documentos pessoais -->
             </div>
 
             <!-- Grupo para upload de contratos assinados -->
             <div class="form-group">
                 <label for="contratos">Contratos Assinados:</label> <!-- Rótulo para o campo de upload de contratos -->
-                <input type="file" id="contratos" multiple> <!-- Campo para fazer upload de múltiplos arquivos de contratos assinados -->
+                <input type="file" id="contratos" multiple>
+                <!-- Campo para fazer upload de múltiplos arquivos de contratos assinados -->
             </div>
 
             <!-- Grupo para upload de extratos do INSS -->
             <div class="form-group">
-                <label for="extratosInss">Extratos do INSS:</label> <!-- Rótulo para o campo de upload de extratos do INSS -->
-                <input type="file" id="extratosInss" multiple> <!-- Campo para fazer upload de múltiplos arquivos de extratos do INSS -->
+                <label for="extratosInss">Extratos do INSS:</label>
+                <!-- Rótulo para o campo de upload de extratos do INSS -->
+                <input type="file" id="extratosInss" multiple>
+                <!-- Campo para fazer upload de múltiplos arquivos de extratos do INSS -->
             </div>
         </div>
-        
+
         <div id="resultado"></div>
     </div>
 </body>
