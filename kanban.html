@@ -36,26 +36,33 @@
         }
 
         async function carregarClientes() {
-            let { data: clientes, error } = await SUPABASE_INSTANCE
-                .from('cadastros') // Nome da tabela no Supabase
-                .select('id, usunome'); // Seleciona os campos 'id' e 'usunome'
+        let { data: clientes, error } = await SUPABASE_INSTANCE
+            .from('cadastros')
+            .select('id, usunome');
 
-            if (error) {
-                console.error("Erro ao carregar clientes: ", error.message); // Exibe erro no console
-                return;
-            }
-
-            const colunaClientes = document.querySelector('#coluna-clientes');
-            clientes.forEach(cliente => {
-                const clienteItem = document.createElement('div');
-                clienteItem.className = 'cliente-item';
-                clienteItem.draggable = true; // Permite arrastar o item
-                clienteItem.textContent = cliente.usunome;
-                clienteItem.dataset.id = cliente.id;
-                clienteItem.addEventListener('dragstart', dragStart); // Adiciona evento de arrastar
-                colunaClientes.appendChild(clienteItem); // Adiciona o item à coluna de clientes
-            });
+        if (error) {
+            console.error("Erro ao carregar clientes: ", error.message);
+            return;
         }
+
+        const colunaClientes = document.querySelector('#coluna-clientes');
+        clientes.forEach(cliente => {
+            const clienteItem = document.createElement('div');
+            clienteItem.className = 'cliente-item';
+            clienteItem.draggable = true;
+            clienteItem.textContent = cliente.usunome;
+            clienteItem.dataset.id = cliente.id;
+
+            // Adiciona evento de clique para redirecionar ao clicar no nome do cliente
+            clienteItem.addEventListener('click', () => {
+                // Redireciona para a página de detalhes do cliente, passando o ID na URL
+                window.location.href = `detalhes_cliente.html?id=${cliente.id}`;
+            });
+
+            clienteItem.addEventListener('dragstart', dragStart);
+            colunaClientes.appendChild(clienteItem);
+        });
+    }
 
         function dragStart(event) {
             event.dataTransfer.setData("text", event.target.dataset.id); // Define os dados para transferência
