@@ -1,0 +1,140 @@
+<!-- Declaração do tipo de documento HTML -->
+<!DOCTYPE html>
+<!-- Início do documento HTML -->
+<html lang="pt-br">
+<!-- Cabeçalho do documento -->
+<head>
+    <!-- Definição do conjunto de caracteres -->
+    <meta charset="UTF-8">
+    <!-- Configuração da viewport para responsividade -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título da página -->
+    <title>Quadro Kanban</title>
+
+    <!-- Link para a fonte e estilo -->
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-kanban.css">
+
+    <!-- Inclusão da biblioteca Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // <!-- Variável para armazenar a instância do cliente Supabase -->
+        var client = false;
+        // <!-- Chamada da função para instanciar o Supabase -->
+        var SUPABASE_INSTANCE = callInstanceSupabase();
+
+        // <!-- Função para obter o token do Supabase -->
+        function getTokenSupabase() {
+            return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZGp1bHdyaXpnd3NoenNuYWZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkxMDQwNjEsImV4cCI6MjA0NDY4MDA2MX0.D94BftAd0eflSZ3-EV5nu_oG2db9mNgiz8Tvtbg1zD4";
+        }
+        
+        // <!-- Função para obter a URL da API do Supabase -->
+        function getUrlApiSupabase() {
+            return "https://mkdjulwrizgwshzsnafm.supabase.co";
+        }
+
+        // <!-- Função para instanciar o cliente Supabase -->
+        function callInstanceSupabase() {
+            if (!client) {
+                let { createClient } = supabase;
+                let url = getUrlApiSupabase();
+                client = createClient(url, getTokenSupabase());
+            }
+            return client;
+        }
+
+        // <!-- Função assíncrona para carregar os clientes -->
+        async function carregarClientes() {
+            let { data: clientes, error } = await SUPABASE_INSTANCE
+                .from('cadastros')
+                .select('id, usunome');
+            
+            if (error) {
+                console.error("Erro ao carregar clientes: ", error.message);
+                return;
+            }
+
+            const colunaClientes = document.querySelector('#coluna-clientes');
+            clientes.forEach(cliente => {
+                const clienteItem = document.createElement('div');
+                clienteItem.className = 'cliente-item';
+                clienteItem.draggable = true;
+                clienteItem.textContent = cliente.usunome;
+                clienteItem.dataset.id = cliente.id;
+                clienteItem.addEventListener('dragstart', dragStart);
+                colunaClientes.appendChild(clienteItem);
+            });
+        }
+
+        // <!-- Função para iniciar o arrasto de um item -->
+        function dragStart(event) {
+            event.dataTransfer.setData("text", event.target.dataset.id);
+            event.dataTransfer.setData("text/nome", event.target.textContent);
+        }
+
+        // <!-- Função para permitir o drop de um item -->
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        // <!-- Função para tratar o drop de um item -->
+        function drop(event, coluna) {
+            event.preventDefault();
+            const idCliente = event.dataTransfer.getData("text");
+            const nomeCliente = event.dataTransfer.getData("text/nome");
+            
+            const itemMovido = document.querySelector(`[data-id="${idCliente}"]`);
+            const novaColuna = document.getElementById(coluna);
+
+            if (itemMovido) {
+                novaColuna.appendChild(itemMovido);
+            }
+        }
+
+        // <!-- Evento para carregar os clientes ao carregar o DOM -->
+        document.addEventListener('DOMContentLoaded', carregarClientes);
+    </script>
+</head>
+<!-- Corpo do documento -->
+<body>
+    <!-- Cabeçalho da página -->
+    <header>
+        <h1>Quadro Kanban</h1>
+    </header>
+
+    <!-- Container principal -->
+    <div class="container">
+        <!-- Menu de navegação -->
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Página Inicial</a></li> <!-- Link para a página inicial -->
+                <li><a href="kanban.html">Kanban</a></li>
+                <li><a href="cadastros.html">Cadastros</a></li> <!-- Link para a página de Cadastro -->
+                <li><a href="tarefas.html">Tarefas</a></li> <!-- Link para a página de tarefas -->
+                <li><a href="clientes.html">Clientes</a></li> <!-- Link para a página de clientes -->
+                <li><a href="documentos.html">Documentos</a></li> <!-- Link para a página de documentos -->
+            </ul>
+        </nav>
+
+        <!-- Quadro Kanban -->
+        <div class="kanban-board">
+            <!-- Coluna de clientes -->
+            <div class="kanban-column" id="coluna-clientes" ondrop="drop(event, 'coluna-clientes')" ondragover="allowDrop(event)">
+                <h2>Nome do Cliente</h2>
+            </div>
+            <!-- Coluna de tarefas a fazer -->
+            <div class="kanban-column" id="coluna-a-fazer" ondrop="drop(event, 'coluna-a-fazer')" ondragover="allowDrop(event)">
+                <h2>A Fazer</h2>
+            </div>
+            <!-- Coluna de tarefas em andamento -->
+            <div class="kanban-column" id="coluna-fazendo" ondrop="drop(event, 'coluna-fazendo')" ondragover="allowDrop(event)">
+                <h2>Fazendo</h2>
+            </div>
+            <!-- Coluna de tarefas feitas -->
+            <div class="kanban-column" id="coluna-feito" ondrop="drop(event, 'coluna-feito')" ondragover="allowDrop(event)">
+                <h2>Feito</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
