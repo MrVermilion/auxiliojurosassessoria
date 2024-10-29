@@ -2,13 +2,13 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8 -->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Configura o viewport para responsividade -->
-    <title>Quadro Kanban</title> <!-- Título da página -->
+    <title>Quadro Kanban</title>
 
     <!-- Fonte e estilo -->
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
+    
     <!-- Inclui a fonte Titillium Web -->
     <link rel="stylesheet" href="style-kanban.css"> <!-- Link para o arquivo de estilo CSS -->
 
@@ -19,7 +19,7 @@
         var SUPABASE_INSTANCE = callInstanceSupabase();
 
         function getTokenSupabase() {
-            return "SEU_TOKEN_SUPABASE"; // Retorna o token para autenticação no Supabase
+            return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZGp1bHdyaXpnd3NoenNuYWZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkxMDQwNjEsImV4cCI6MjA0NDY4MDA2MX0.D94BftAd0eflSZ3-EV5nu_oG2db9mNgiz8Tvtbg1zD4"; // Retorna o token para autenticação no Supabase
         }
 
         function getUrlApiSupabase() {
@@ -89,12 +89,12 @@
     <div class="container">
         <nav class="menu">
             <ul>
-                <li><a href="index.html">Página Inicial</a></li>
-                <li><a href="cadastros.html">Cadastros</a></li>
-                <li><a href="tarefas.html">Tarefas</a></li>
-                <li><a href="clientes.html">Clientes</a></li>
-                <li><a href="documentos.html">Documentos</a></li>
-                <li><a href="kanban.html">Kanban</a></li> <!-- Links para outras páginas -->
+                <li><a href="index.html">Página Inicial</a></li> <!-- Link para a página inicial -->
+                <li><a href="kanban.html">Kanban</a></li>
+                <li><a href="cadastros.html">Cadastros</a></li> <!-- Link para a página de Cadastro -->
+                <li><a href="tarefas.html">Tarefas</a></li> <!-- Link para a página de tarefas -->
+                <li><a href="clientes.html">Clientes</a></li> <!-- Link para a página de clientes -->
+                <li><a href="documentos.html">Documentos</a></li> <!-- Link para a página de documentos -->
             </ul>
         </nav>
         <div class="kanban-board">
